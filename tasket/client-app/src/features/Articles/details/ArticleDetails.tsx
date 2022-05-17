@@ -4,16 +4,11 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import LoadingComponent from "../../../app/layout/LoadingComponents";
 import { useStore } from "../../../app/stores/store";
-import PanelInstruction from "./PanelInstruction";
 
 
 import agent from "../../../app/api/agent";
 import { Article } from "../../../app/models/article";
 import { Instruction } from "../../../app/models/instruction";
-import ModelScreen from "./ModelScreen";
-import DebugDisplay from "./DebugDisplay";
-import TestScreen from "./TestScreen";
-import TestScreen2 from "./TestScreen2";
 
 
 
@@ -35,8 +30,6 @@ export default observer( function ArticleDetails() {
     const {viewStore} = useStore();
     const {selectedView,  loadViews, setselectedView, viewRegistry, isLoadingFinished : isViewLoadingFinished} = viewStore;
     
-    const {rendererStore} = useStore();
-    const {setIsScreenSetup,  setIsScreenSetupLoadingFinished, isScreenSetupLoadingFinished} = rendererStore;
     
     function handleResize() {
         const size = document.documentElement.clientHeight - document.getElementById(html_id_instruction)!.getBoundingClientRect().top;
@@ -52,13 +45,6 @@ export default observer( function ArticleDetails() {
         }
     })
 
-    useEffect(() => {
-        //console.log('set article loading: ' + isArticleLoadingFinished );   
-        //console.log('set instruction loading: ' + isInstructionLoadingFinished );     
-        setIsScreenSetupLoadingFinished(isArticleLoadingFinished && isInstructionLoadingFinished && isViewLoadingFinished);
-        
-    },[isArticleLoadingFinished, isInstructionLoadingFinished, isViewLoadingFinished])
-
 
     useEffect(()=> {
         selectedInstruction && setselectedView(selectedInstruction.id_view);
@@ -67,8 +53,6 @@ export default observer( function ArticleDetails() {
     
 
     useEffect(()=> {
-        setIsScreenSetup(false);
-        setIsScreenSetupLoadingFinished(false);
 
         if(id) {
             //console.log('id change: to ' + id);
@@ -80,7 +64,7 @@ export default observer( function ArticleDetails() {
     }, [id])
 
 
-    if(!isScreenSetupLoadingFinished) return (<><LoadingComponent /><DebugDisplay /></>);
+    if(!false) return (<><LoadingComponent /></>);
     
 
     const handleInputChangeInstruction=(id_instruct: number) => {
@@ -109,10 +93,6 @@ export default observer( function ArticleDetails() {
                         </>
                         */
                     }
-                    {
-                     //   <ModelScreen />
-                        <TestScreen2 />
-                    }
                         <div id="control_panel_zone">
                             {
                                 Array.from(instructionRegistry.values()).map(x=>(
@@ -130,7 +110,7 @@ export default observer( function ArticleDetails() {
                     <Col>                        
                         <div id={html_id_instruction} className="overflow-auto" style={{'height':`${descriptionAreaHeight}px`}}>
                             {
-                                selectedInstruction && <PanelInstruction instruction={selectedInstruction} />
+                                //selectedInstruction && <PanelInstruction instruction={selectedInstruction} />
                             }
                         </div>
                         

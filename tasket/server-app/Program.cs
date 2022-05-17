@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using server_app.Models;
+//using server_app.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace server_app
             try 
             {
                 var context = services.GetRequiredService<DataContext>();
-                var userManager = services.GetRequiredService<UserManager<AppIdUser>>();
+                var userManager = services.GetRequiredService<UserManager<Models.AppIdUser>>();
                 //await context.Database.MigrateAsync();
                 //await Seed.SeedData(context, userManager);
 

@@ -11,6 +11,6 @@ namespace server_app.Data
         {
         }
 
-        //public DbSet<Activity> Activities {get; set;}
+        public DbSet<Task> Tasks {get; set;}
     }
 }

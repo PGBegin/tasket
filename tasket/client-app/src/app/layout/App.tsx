@@ -13,11 +13,8 @@ import LoginForm from '../../features/users/LoginForm';
 import { useStore } from '../stores/store';
 import LoadingComponent from './LoadingComponents';
 import ModalContainer from '../common/modals/ModalContainer';
-import AttachmentFileDashboard from '../../features/attachmentfiles/dashboard/AttachmentFileDashboard';
 import ArticleDashboard from '../../features/Articles/dashboard/ArticleDashboard';
 import ArticleDetails from '../../features/Articles/details/ArticleDetails';
-import ModelfileDashboard from '../../features/Modelfiles/dashboard/ModelfileDashboard';
-import ModelfileDetails from '../../features/Modelfiles/details/ModelfileDetails';
 
 function App() {
   const location = useLocation();
@@ -48,9 +45,6 @@ function App() {
                 <Route exact path = '/' component={ArticleDashboard} />       
                 <Route path = '/articles' component={ArticleDashboard} />
                 <Route path = '/article/:id' component={ArticleDetails} />
-                <Route path = '/attachmentfiles' component={AttachmentFileDashboard} />
-                <Route path = '/modelfiles' component={ModelfileDashboard} />
-                <Route path = '/modelfile/:id' component={ModelfileDetails} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route path='/login' component={LoginForm} />
