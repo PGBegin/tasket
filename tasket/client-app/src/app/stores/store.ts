@@ -4,6 +4,7 @@ import AttachmentfileStore from "./attachmentfileStore";
 import CommonStore from "./eommonStore";
 import InstructionStore from "./instructionStore";
 import ModalStore from "./modalStore";
+import TaskStore from "./taskStore";
 import UserStore from "./userStore";
 import ViewStore from "./viewStore";
 
@@ -15,6 +16,7 @@ interface Store{
     commonStore: CommonStore;
     userStore: UserStore;
     modalStore: ModalStore;
+    taskStore:TaskStore;
 }
 
 export const store: Store={
@@ -24,7 +26,8 @@ export const store: Store={
     commonStore: new CommonStore(),
     userStore: new UserStore(),
     modalStore: new ModalStore(),
-    viewStore: new ViewStore()
+    viewStore: new ViewStore(),
+    taskStore: new TaskStore()
     
 }
 

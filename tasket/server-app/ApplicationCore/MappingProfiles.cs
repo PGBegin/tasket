@@ -1,4 +1,5 @@
 using AutoMapper;
+using server_app.Models;
 //using Domain;
 
 namespace server_app.ApplicationCore
@@ -7,7 +8,7 @@ namespace server_app.ApplicationCore
     {
         public MappingProfiles()
         {
-            //CreateMap<Activity, Activity>();
+            CreateMap<Task, Task>();
         }
     }
 }

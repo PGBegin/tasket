@@ -6,6 +6,7 @@ import { Article } from "../models/article";
 import { Attachmentfile } from "../models/attachmentfile";
 import { Instruction } from "../models/instruction";
 import { Modelfile } from "../models/ModelFile";
+import { Task } from "../models/Task";
 import { User, UserFormValues } from "../models/user";
 import { View } from "../models/view";
 import { store } from "../stores/store";
@@ -69,6 +70,11 @@ const requests = {
     del: <T>(url:string) => axios.delete<T>(url).then(responseBody),
 }
 
+
+const Tasks = {
+    list: () => requests.get<Task[]>('/tasks/index'),
+    details:(id:number) => requests.get<Task>(`/task/details/${id}`),
+}
 const Modelfiles = {
     list: () => requests.get<Modelfile[]>('/modelfiles/index'),
     details:(id:number) => requests.get<Modelfile>(`/modelfiles/details/${id}`),
@@ -106,7 +112,8 @@ const agent = {
     Attachmentfiles,
     Articles,
     Instructions,
-    Views
+    Views,
+    Tasks
 }
 
 export default agent;

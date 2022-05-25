@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using server_app.ApplicationCore;
 
-namespace API.Controllers
+namespace server_app.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
