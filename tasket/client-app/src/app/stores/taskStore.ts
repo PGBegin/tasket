@@ -17,12 +17,18 @@ export default class TaskStore {
 
     loadTasks = async () => {
         this.loadingInitial = true;
+        this.isLoadingFinished = false;
         try {
             const tasks = await agent.Tasks.list();
             tasks.forEach(task => {
                 this.setTask(task);
+                //console.log(task);
             })
             this.setLoaingInitial(false);
+            this.setIsLoadingFinished(true);
+            //console.log(tasks);
+
+            //Array.from(this.taskRegistry.values()).map(x=> console.log(x));
         } catch (error) {
             console.log(error);
             this.setLoaingInitial(false);
@@ -55,8 +61,69 @@ export default class TaskStore {
         }
     }
 
+    
+    createTask = async (task: Task) => {
+        this.loading = true;
+        try {
+            await agent.Tasks.create(task);
+            runInAction(() => {
+                this.taskRegistry.set(task.id, task);
+                this.selectedTask = task;
+                this.editMode=false;
+                this.loading = false;
+            })            
+        }catch (error) {
+            console.log(error);
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+    
+/*
+    updateActivity = async (activity: Activity) => {
+        this.loading = true;
+        
+        try {
+            await agent.Activities.update(activity);
+            runInAction(() => {
+                this.activityRegistry.set(activity.id, activity);
+                this.selectedActivity = activity;
+                this.editMode=false;
+                this.loading = false;
+            })
+            
+        }catch (error) {
+            console.log(error);
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+*/
+
+    deleteTask = async (Id: number) => {
+        this.loading = true;
+        
+        try {
+            await agent.Tasks.delete(Id);
+            runInAction(() => {
+                this.taskRegistry.delete(Id);
+                this.loading = false;
+            })
+            
+        }catch (error) {
+            console.log(error);
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
     private setTask = (task : Task) => {
-        this.taskRegistry.set(task.Id,task);
+        this.taskRegistry.set(task.id,task);
+        //console.log('called');
+        //console.log(task);
     }
 
     private getTask=(id:number) => {

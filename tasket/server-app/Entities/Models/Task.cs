@@ -4,10 +4,17 @@ namespace server_app.Models
 {
     public class Task
     {
-        public long Id { get; set; }
-        public string Title {get; set;}
-        public DateTime Date { get; set; }
-        public string ShortDescription { get; set; }
-        public string LongDescription { get; set; }
+        public long id { get; set; }
+        public string title {get; set;}
+        public Nullable<DateTime> startDatetimeScheduled { get; set; }
+        public Nullable<DateTime> startDatetimeActual { get; set; }
+        public Nullable<DateTime> endDatetimeScheduled { get; set; }
+        public Nullable<DateTime> endDatetimeActual { get; set; }
+        public string shortDescription { get; set; }
+        public string longDescription { get; set; }
+        public string createUser { get; set; }
+        public DateTime createDatetime { get; set; }
+        public string latestUpdateUser { get; set; }
+        public DateTime latestUpdateDatetime { get; set; }
     }
 }

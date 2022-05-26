@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using server_app.Data;
 
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220526080329_InitialCreate5")]
+    partial class InitialCreate5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,44 +212,44 @@ namespace server_app.Migrations
 
             modelBuilder.Entity("server_app.Models.Task", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("createDatetime")
+                    b.Property<DateTime>("CreateDatetime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("createUser")
+                    b.Property<string>("CreateUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("endDatetimeActual")
+                    b.Property<DateTime?>("EndDatetimeActual")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("endDatetimeScheduled")
+                    b.Property<DateTime?>("EndDatetimeScheduled")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("latestUpdateDatetime")
+                    b.Property<DateTime>("LatestUpdateDatetime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("latestUpdateUser")
+                    b.Property<string>("LatestUpdateUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("longDescription")
+                    b.Property<string>("LongDescription")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("shortDescription")
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("startDatetimeActual")
+                    b.Property<DateTime?>("StartDatetimeActual")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("startDatetimeScheduled")
+                    b.Property<DateTime?>("StartDatetimeScheduled")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Tasks");
                 });

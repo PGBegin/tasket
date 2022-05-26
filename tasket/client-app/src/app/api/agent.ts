@@ -73,7 +73,10 @@ const requests = {
 
 const Tasks = {
     list: () => requests.get<Task[]>('/tasks/index'),
-    details:(id:number) => requests.get<Task>(`/task/details/${id}`),
+    details:(id:number) => requests.get<Task>(`/tasks/details/${id}`),
+    create:(task: Task) => axios.post<void>(`/tasks/create`,task),
+//    update: (activity: Activity) => axios.put<void>(`/activities/${activity.id}`, activity),
+    delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
 }
 const Modelfiles = {
     list: () => requests.get<Modelfile[]>('/modelfiles/index'),

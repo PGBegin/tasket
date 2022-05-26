@@ -7,7 +7,7 @@ namespace server_app.Application.Tasks
     {
         public TaskValidator()
         {
-            RuleFor(x => x.Title).NotEmpty();
+            RuleFor(x => x.title).NotEmpty();
         }
     }
 }

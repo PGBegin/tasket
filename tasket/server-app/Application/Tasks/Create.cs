@@ -37,6 +37,19 @@ namespace server_app.Application.Tasks
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+
+                
+                long id = 1 + (await _context.Tasks
+                                        .MaxAsync(t => (long?)t.id) ?? 0);
+
+                request.Task.id = id;
+
+                
+                request.Task.createUser = "";
+                request.Task.createDatetime = DateTime.Now;
+                request.Task.latestUpdateUser = "";
+                request.Task.latestUpdateDatetime = DateTime.Now;
+
                 _context.Tasks.Add(request.Task);
 
                 var result = await _context.SaveChangesAsync() > 0;

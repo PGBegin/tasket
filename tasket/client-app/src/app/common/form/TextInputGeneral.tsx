@@ -14,7 +14,7 @@ export default function TextInputGeneral(props: Props){
     const[field, meta] = useField(props.name);
     return (
         <>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group>
             <Form.Label>{props.label}</Form.Label>
             <Form.Control {...field} {...props} />
             {meta.touched && meta.error ? (
