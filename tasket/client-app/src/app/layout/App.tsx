@@ -13,10 +13,9 @@ import LoginForm from '../../features/users/LoginForm';
 import { useStore } from '../stores/store';
 import LoadingComponent from './LoadingComponents';
 import ModalContainer from '../common/modals/ModalContainer';
-import ArticleDashboard from '../../features/Articles/dashboard/ArticleDashboard';
-import ArticleDetails from '../../features/Articles/details/ArticleDetails';
 import TaskIndex from '../../features/Tasks/index/TaskIndex';
 import TaskForm from '../../features/Tasks/form/TaskForm';
+import TaskDetails from '../../features/Tasks/details/TaskDetails';
 
 function App() {
   const location = useLocation();
@@ -38,15 +37,15 @@ function App() {
       <ToastContainer position ='bottom-right' hideProgressBar />
       <ModalContainer />
       <Route
-        //path={'/(.+)'}        
+        //path={'/(.+)'}
         render={() => (
           <>          
             <NavBar />
             <Container style = {{marginTop: '7em'}}>
               <Switch>
-                <Route exact path = '/' component={TaskIndex} />       
-                <Route path = '/articles' component={ArticleDashboard} />
-                <Route path = '/article/:id' component={ArticleDetails} />
+                <Route exact path = '/' component={TaskIndex} />
+                <Route path = '/tasks' component={TaskIndex} />
+                <Route path = '/task/:id' component={TaskDetails} />
                 <Route key = {location.key} path = {['/createTask', '/manage/:id']} component={TaskForm} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />

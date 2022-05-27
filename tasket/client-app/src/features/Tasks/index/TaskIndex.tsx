@@ -20,7 +20,7 @@ export default observer(function TaskIndex() {
     },[taskRegistry.size, loadTasks])
   
   
-    if(!isLoadingFinished) return <LoadingComponent content='Loading tasks...' />
+    if(!isLoadingFinished) return <LoadingComponent content='Loading task...' />
 
 
 
@@ -32,7 +32,7 @@ export default observer(function TaskIndex() {
 
                     <div key={x.id}>
                         <div>
-                            <Link to={`/article/${x.id}`}>
+                            <Link to={`/task/${x.id}`}>
                                 {
                                     //<img className="img-thumbnail mb-3" src={`https://localhost:5001/api/attachmentfiles/file/${x.id_attachment_for_eye_catch}`} alt="" width="480" height="270" loading="lazy"></img>
                                 }

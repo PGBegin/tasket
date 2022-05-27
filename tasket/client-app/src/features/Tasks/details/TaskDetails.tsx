@@ -7,77 +7,36 @@ import { useStore } from "../../../app/stores/store";
 
 
 import agent from "../../../app/api/agent";
-import { Article } from "../../../app/models/article";
-import { Instruction } from "../../../app/models/instruction";
 
 
 
 
-export default observer( function ArticleDetails() {
+export default observer( function TaskDetails() {
 
     const html_id_instruction = "instruction_description_zone";
     
     const {id} = useParams<{id:string}>();
-    const [descriptionAreaHeight, setDescriptionAreaHeight] = useState(document.documentElement.clientHeight);
-
-    const {articleStore} = useStore();
-    const {selectedArticle : article, loadArticle, isLoadingFinished : isArticleLoadingFinished} = articleStore;
     
-    const {instructionStore} = useStore();
-    const {loadInstructions, selectedInstruction, setSelectedInstruction, instructionRegistry, isLoadingFinished : isInstructionLoadingFinished} = instructionStore;
+    const {taskStore} = useStore();
+    const {loadTask, selectedTask, isLoadingFinished} = taskStore;
 
-
-    const {viewStore} = useStore();
-    const {selectedView,  loadViews, setselectedView, viewRegistry, isLoadingFinished : isViewLoadingFinished} = viewStore;
-    
-    
-    function handleResize() {
-        const size = document.documentElement.clientHeight - document.getElementById(html_id_instruction)!.getBoundingClientRect().top;
-        setDescriptionAreaHeight(size);
-    }
-
-    useEffect(() => {
-    
-        window.addEventListener('resize', handleResize)
-    
-        return () => {
-          window.removeEventListener('resize', handleResize)
-        }
-    })
-
-
-    useEffect(()=> {
-        selectedInstruction && setselectedView(selectedInstruction.id_view);
-        //console.log('selected instruction change: to ' + selectedInstruction?.id_instruct);
-    }, [selectedInstruction])
-    
 
     useEffect(()=> {
 
         if(id) {
-            //console.log('id change: to ' + id);
-            loadArticle(Number(id));
-            loadInstructions(Number(id));
-            loadViews(Number(id));
+            loadTask(Number(id));
         }
 
     }, [id])
 
 
-    if(!false) return (<><LoadingComponent /></>);
-    
-
-    const handleInputChangeInstruction=(id_instruct: number) => {
-        handleResize();
-        setSelectedInstruction(id_instruct);
-    }
-
+    if(!isLoadingFinished) return (<><LoadingComponent /></>);   
 
 
 
     return (
         <>
-            <h2>{article!.title}</h2>
+            <h2>{selectedTask!.title}</h2>
 
             <Container>
                 <Row>
@@ -94,21 +53,10 @@ export default observer( function ArticleDetails() {
                         */
                     }
                         <div id="control_panel_zone">
-                            {
-                                Array.from(instructionRegistry.values()).map(x=>(
-                                    <>
-                                    <button  key={x.id_instruct}
-                                        type = 'submit'
-                                        className={x.id_instruct==selectedInstruction?.id_instruct ? "btn btn-primary" : "btn btn-outline-primary"}
-                                        onClick={()=>{handleInputChangeInstruction(x.id_instruct)}} >{x.title}</button>
-                                    </>
-                                ))
-                            }
-                            <p>{descriptionAreaHeight}</p>
                         </div>
                     </Col>
                     <Col>                        
-                        <div id={html_id_instruction} className="overflow-auto" style={{'height':`${descriptionAreaHeight}px`}}>
+                        <div id={html_id_instruction} className="overflow-auto" >
                             {
                                 //selectedInstruction && <PanelInstruction instruction={selectedInstruction} />
                             }

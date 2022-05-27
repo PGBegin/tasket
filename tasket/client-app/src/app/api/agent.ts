@@ -3,12 +3,8 @@ import { request } from "http";
 import { toast } from "react-toastify";
 import { history } from "../..";
 import { Article } from "../models/article";
-import { Attachmentfile } from "../models/attachmentfile";
-import { Instruction } from "../models/instruction";
-import { Modelfile } from "../models/ModelFile";
 import { Task } from "../models/Task";
 import { User, UserFormValues } from "../models/user";
-import { View } from "../models/view";
 import { store } from "../stores/store";
 
 const sleep = (delay: number) => {
@@ -78,30 +74,11 @@ const Tasks = {
 //    update: (activity: Activity) => axios.put<void>(`/activities/${activity.id}`, activity),
     delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
 }
-const Modelfiles = {
-    list: () => requests.get<Modelfile[]>('/modelfiles/index'),
-    details:(id:number) => requests.get<Modelfile>(`/modelfiles/details/${id}`),
-}
-
-const Attachmentfiles = {
-    list: () => requests.get<Attachmentfile[]>('/attachmentfiles/index'),
-    details:(id:number) => requests.get<Attachmentfile>(`/attachmentfiles/${id}`),
-}
-
 const Articles = {
     list: () => requests.get<Article[]>('/articles/index'),
     details:(id:number) => requests.get<Article>(`/articles/details/${id}`),
 }
 
-const Instructions = {
-    list: (id:number) => requests.get<Instruction[]>(`/instruction/index/${id}`),
-    details:(id_article:number,id_instruct:number) => requests.get<Instruction>(`/instruction/id_article=${id_article}&id_article=${id_instruct}`),
-}
-
-const Views = {
-    list: (id:number) => requests.get<View[]>(`/view/index/${id}`),
-    details:(id:number) => requests.get<View>(`/view/details/${id}`),
-}
 
 const Account = {
     current: () => requests.get<User>('/account'),
@@ -111,11 +88,7 @@ const Account = {
 
 const agent = {
     Account,
-    Modelfiles,
-    Attachmentfiles,
     Articles,
-    Instructions,
-    Views,
     Tasks
 }
 
