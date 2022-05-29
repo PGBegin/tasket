@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import { Form, Label } from "semantic-ui-react";
+import { Form } from 'react-bootstrap'
 
 interface Props{
     placeholder: string;
@@ -9,15 +9,17 @@ interface Props{
     label?: string;
 }
 
-export default function MyTextArea(props: Props){
+export default function TextAreaGeneral(props: Props){
     const[field, meta] = useField(props.name);
     return (
-        <Form.Field error={meta.touched && !!meta.error}>
-            <label>{props.label}</label>
+        <>
+        <Form.Group>
+            <Form.Label>{props.label}</Form.Label>
             <textarea {...field} {...props} />
             {meta.touched && meta.error ? (
-                <Label basic color='red'>{meta.error}</Label>
+                <Form.Label>{meta.error}</Form.Label>
             ) : null}
-        </Form.Field>
+        </Form.Group>
+        </>
     )
 }

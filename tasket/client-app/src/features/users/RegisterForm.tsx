@@ -1,8 +1,8 @@
 import { ErrorMessage, Formik } from "formik";
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Button, Form, Header } from "semantic-ui-react";
-import MyTextInput from "../../app/common/form/MyTextInput";
+import { Button, Form } from "react-bootstrap";
+import TextInputGeneral from "../../app/common/form/TextInputGeneral";
 import { useStore } from "../../app/stores/store";
 import * as Yup from 'yup'
 import ValidationErrors from "../errors/ValidationErrors";
@@ -23,17 +23,22 @@ export default observer( function RegisterForm() {
             >
                 {({handleSubmit, isSubmitting, errors, isValid, dirty}) =>(
                     <Form className="ui form error" onSubmit={handleSubmit} autoComplete='off'>
-                        <Header as = 'h2' content = 'Sigh up to Reactivites' color="teal" textAlign="center" />
-                        <MyTextInput name='displayName' placeholder="display Name" />
-                        <MyTextInput name='username' placeholder="User Name" />
-                        <MyTextInput name='email' placeholder="Email" />
-                        <MyTextInput name='password' placeholder="Password" type="password" />
+                        <h3>Sigh up to Tasket</h3>
+                        <TextInputGeneral name='displayName' placeholder="display Name" />
+                        <TextInputGeneral name='username' placeholder="User Name" />
+                        <TextInputGeneral name='email' placeholder="Email" />
+                        <TextInputGeneral name='password' placeholder="Password" type="password" />
                         <ErrorMessage 
                             name='error' render={() => 
                             <ValidationErrors errors = {errors.error} />}
                         />
+                        {
+                        //<Button disabled={!isValid || !dirty || isSubmitting} 
+                        //    loading={isSubmitting} positive content ='Register' type = 'submit' fluid />
+
+                        }
                         <Button disabled={!isValid || !dirty || isSubmitting} 
-                            loading={isSubmitting} positive content ='Register' type = 'submit' fluid />
+                            type = 'submit' >Submit</Button>
                     </Form>
                 )}
             </Formik>

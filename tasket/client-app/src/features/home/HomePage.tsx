@@ -17,9 +17,9 @@ export default observer( function HomePage() {
                 </Header>
                 {userStore.isLoggedin ? (
                     <>
-                    <Header as ='h2' inverted content = 'Welcome to Rectivities' />
-                    <Button as ={Link} to ='/articles' size = 'huge' inverted>
-                        Go to Articles!
+                    <Header as ='h2' inverted content = 'Welcome to Tasket' />
+                    <Button as ={Link} to ='/tasks' size = 'huge' inverted>
+                        Go to Tasks!
                     </Button>
                     </>
 

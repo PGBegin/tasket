@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-//import { Container } from 'semantic-ui-react';
 import { Container } from 'react-bootstrap';
 import NavBar from './NavBar';
 import { observer } from 'mobx-react-lite';
@@ -16,6 +15,7 @@ import ModalContainer from '../common/modals/ModalContainer';
 import TaskIndex from '../../features/Tasks/index/TaskIndex';
 import TaskForm from '../../features/Tasks/form/TaskForm';
 import TaskDetails from '../../features/Tasks/details/TaskDetails';
+import RegisterForm from '../../features/users/RegisterForm';
 
 function App() {
   const location = useLocation();
@@ -43,13 +43,14 @@ function App() {
             <NavBar />
             <Container style = {{marginTop: '7em'}}>
               <Switch>
-                <Route exact path = '/' component={TaskIndex} />
+                <Route exact path = '/' component={HomePage} />
                 <Route path = '/tasks' component={TaskIndex} />
                 <Route path = '/task/:id' component={TaskDetails} />
-                <Route key = {location.key} path = {['/createTask', '/manage/:id']} component={TaskForm} />
+                <Route key = {location.key} path = {['/createTask', '/edittask/:id']} component={TaskForm} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route path='/login' component={LoginForm} />
+                <Route path='/register' component={RegisterForm} />
                 <Route component={NotFound} />
               </Switch>
             </Container>    

@@ -10,16 +10,15 @@ export default observer ( function NavBar() {
     return(
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand as={NavLink} to="/">3D Aerospace Museum</Navbar.Brand>
+                <Navbar.Brand as={NavLink} to="/">Tasket</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link as={NavLink} to="/articles">Articles</Nav.Link>
+                    <Nav.Link as={NavLink} to="/tasks">Tasks</Nav.Link>
                         {
                             user ? 
                                 <>
-                                    <Nav.Link as={NavLink} to="/attachmentfiles">Attachmentfiles</Nav.Link>
-                                    <Nav.Link as={NavLink} to="/modelfiles">Modelfiles</Nav.Link>
+                                    <Nav.Link as={NavLink} to="/register">Register</Nav.Link>
                                     <Nav.Link as={NavLink} to="/errors">Errors</Nav.Link>
                                     <Nav.Link as={NavLink} to="/logout">{user.username} </Nav.Link>
                                 </>                            

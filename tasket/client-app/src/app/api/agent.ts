@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { request } from "http";
 import { toast } from "react-toastify";
 import { history } from "../..";
-import { Article } from "../models/article";
 import { Task } from "../models/Task";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
@@ -71,12 +70,9 @@ const Tasks = {
     list: () => requests.get<Task[]>('/tasks/index'),
     details:(id:number) => requests.get<Task>(`/tasks/details/${id}`),
     create:(task: Task) => axios.post<void>(`/tasks/create`,task),
+    update: (task: Task) => axios.post<void>(`/tasks/update/${task.id}`, task),
 //    update: (activity: Activity) => axios.put<void>(`/activities/${activity.id}`, activity),
     delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
-}
-const Articles = {
-    list: () => requests.get<Article[]>('/articles/index'),
-    details:(id:number) => requests.get<Article>(`/articles/details/${id}`),
 }
 
 
@@ -88,7 +84,6 @@ const Account = {
 
 const agent = {
     Account,
-    Articles,
     Tasks
 }
 

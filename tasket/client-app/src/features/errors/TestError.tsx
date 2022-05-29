@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import {Button, Header, Segment} from "semantic-ui-react";
 import axios from 'axios';
 import ValidationErrors from './ValidationErrors';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 export default function TestErrors() {
-    const baseUrl = 'http://localhost:5000/api/'
+    const baseUrl = 'https://localhost:5001/api/'
     const [errors, setErrors] = useState(null);
 
     function handleNotFound() {
@@ -33,17 +33,17 @@ export default function TestErrors() {
 
     return (
         <>
-            <Header as='h1' content='Test Error component' />
-            <Segment>
-                <Button.Group widths='7'>
-                    <Button onClick={handleNotFound} content='Not Found' basic primary />
-                    <Button onClick={handleBadRequest} content='Bad Request' basic primary />
-                    <Button onClick={handleValidationError} content='Validation Error' basic primary />
-                    <Button onClick={handleServerError} content='Server Error' basic primary />
-                    <Button onClick={handleUnauthorised} content='Unauthorised' basic primary />
-                    <Button onClick={handleBadGuid} content='Bad Guid' basic primary />
-                </Button.Group>
-            </Segment>
+            <h1>Test Error component</h1>
+            <div>
+                <ButtonGroup aria-label="Basic example">
+                    <Button onClick={handleNotFound} >Not Found</Button>
+                    <Button onClick={handleBadRequest} >Not Found</Button>
+                    <Button onClick={handleValidationError} >Validation Error</Button>
+                    <Button onClick={handleServerError} >Server Error</Button>
+                    <Button onClick={handleUnauthorised} >Unauthorised</Button>
+                    <Button onClick={handleBadGuid} >Bad Guid</Button>
+                </ButtonGroup>
+            </div>
             {errors &&
                 <ValidationErrors errors={ errors } />
             }

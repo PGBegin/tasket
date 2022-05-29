@@ -16,8 +16,8 @@ export default function NotFound() {
                     Sorry, an error has occured, Requested page not found!
                 </div>
                 <div>
-                    <Button  href = '/articles' variant="link">
-                        Return to articles page   
+                    <Button  href = '/' variant="link">
+                        Return to top page   
                     </Button>
                 </div>
             </div>

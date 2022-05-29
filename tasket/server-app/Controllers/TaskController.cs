@@ -26,15 +26,15 @@ namespace server_app.Controllers
             return HandleResult(await Mediator.Send(new Create.Command{ Task = task}));
         }
         
-/*
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditActivity(Guid id, [FromBody]Activity activity)
+
+        [HttpPost("update/{id}")]
+        public async Task<IActionResult> Update(long id, [FromBody] Models.Task task)
         {
-            activity.Id = id;
+            task.id = id;
 
-            return HandleResult(await Mediator.Send(new Edit.Command{ Activity = activity}));
+            return HandleResult(await Mediator.Send(new Edit.Command{ Task = task}));
         }
-
+/*
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteActivity(Guid id)
         {

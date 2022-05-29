@@ -1,29 +1,24 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { Button, Header, Segment } from "semantic-ui-react";
+import { Button } from "react-bootstrap";
 import LoadingComponent from "../../../app/layout/LoadingComponents";
 import { useStore } from "../../../app/stores/store";
 import {v4 as uuid} from 'uuid';
 import { Formik , Form} from "formik";
 import * as Yup from 'yup';
-import MyTextInput from "../../../app/common/form/MyTextInput";
-import MyTextArea from "../../../app/common/form/MyTextArea";
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { Task } from "../../../app/models/Task";
 import TextInputGeneral from "../../../app/common/form/TextInputGeneral";
-import MyDateInput from "../../../app/common/form/MyDateInput";
 import DateInputGeneral from "../../../app/common/form/DateInputGeneral";
-//import { categoryOptions } from "../../../app/common/options/categoryOptions";
-//import MyDateInput from "../../../app/common/form/MyDateInput";
-//import { Activity } from "../../../app/models/activity";
+import TextAreaGeneral from "../../../app/common/form/TextAreaGeneral";
 
 export default observer( function TaskForm(){
     const history = useHistory();
     const {taskStore} = useStore();
     const {
         createTask, 
-        //updateTask, 
+        updateTask, 
         loading, loadTask, loadingInitial} = taskStore;
 
     const {id} = useParams<{id: string}>();
@@ -31,14 +26,21 @@ export default observer( function TaskForm(){
     const [task, setTask] = useState<Task>({
         id: 0,
         title: '',
-        date: null,
+        startDatetimeScheduled: null,
+        startDatetimeActual: null,
+        endDatetimeScheduled: null,
+        endDatetimeActual: null,
         shortDescription: '',
         longDescription: '',
     });
 
     const validationSchema = Yup.object({
         title: Yup.string().required('The task Title is required'),
-        date: Yup.date(),
+        shortDescription: Yup.string().nullable(),
+        startDatetimeScheduled: Yup.date().nullable(),
+        startDatetimeActual: Yup.date().nullable(),
+        endDatetimeScheduled: Yup.date().nullable(),
+        endDatetimeActual: Yup.date().nullable(),
 /*        description: Yup.string().required(),
         category: Yup.string().required(),
         date: Yup.string().required('Date is reqired').nullable(),
@@ -56,10 +58,11 @@ export default observer( function TaskForm(){
             let newTask = {
                 ...task
             };
-            console.log(newTask);
+            //console.log(newTask);
             createTask(newTask);
 //            createTask(newActivity).then(() => history.push(`/task/${newTask.Id}`))
         } else {
+            updateTask(task);
             //updateActivity(task).then(() => history.push(`/activities/${task.Id}`))
         }
     }
@@ -67,8 +70,11 @@ export default observer( function TaskForm(){
     if(loadingInitial) return <LoadingComponent content="Loading task..." />
 
     return(
-        <Segment clearing>
-            <Header content='Task Details' sub color='teal' />
+        <div>
+            {
+                //<Header content='Task Details' sub color='teal' />
+            }            
+            <h3>Task Details</h3> 
             <Formik 
                 validationSchema={validationSchema}
                 enableReinitialize 
@@ -76,19 +82,15 @@ export default observer( function TaskForm(){
                 onSubmit={values => handleFormSubmit(values)}>
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className="ui form" onSubmit = {handleSubmit} autoComplete='off'>
-                        <MyTextInput name='Title' placeholder='title' />
-                        <DateInputGeneral 
-                            placeholderText='Date' 
-                            name = 'date'
-                            dateFormat='MM d, yyyy'
-                        />
+                        <TextInputGeneral name='title' placeholder='title' />
+
+                        <TextAreaGeneral placeholder='shortDescription' name='shortDescription' rows={3}   />
+
+                        <DateInputGeneral placeholderText='Start(Schedule)' name = 'startDatetimeScheduled' dateFormat='MM d, yyyy' />
+                        <DateInputGeneral placeholderText='Start(Act)' name = 'startDatetimeActual' dateFormat='MM d, yyyy' />
+                        <DateInputGeneral placeholderText='End(Schedule)' name = 'endDatetimeScheduled' dateFormat='MM d, yyyy' />
+                        <DateInputGeneral placeholderText='End(Act)' name = 'endDatetimeActual' dateFormat='MM d, yyyy' />
                         {
-                            /*
-                        <DateInputGeneral 
-                            placeholderText='Date' 
-                            name = 'date'
-                            dateFormat='MM d, yyyy'
-                        />*/
                             
                         //<MySelectInput placeholder='Category' name='category' options={categoryOptions} />
                             /*
@@ -100,38 +102,23 @@ export default observer( function TaskForm(){
                                 dateFormat='MMMM d, yyyy h:mm aa'
                             />
                             
-                            
-                            
-                            
-                         
-                        <MyTextArea placeholder='Description' name='description' rows={3}   />   
-                            
-                            
-                            
-    Id: number;
-    Title: string;
-    date: Date | null;
-    ShortDescription: string;
-    LongDescription: string;
                         <Header content='Location Details' sub color='teal' />
                         <MyTextInput placeholder = 'City'  name = 'city'   />
                         <MyTextInput placeholder = 'Venue'  name = 'venue'   />
     
-    */
+                        */
                          }
-                        <Button 
-                            disabled={
-                                isSubmitting
-                                 || !dirty
-                                 || !isValid
-                                }
-                            loading={loading} floated="right" positive type = 'submit' content = 'Submit' />
-                        <Button as = {Link} to ='/activities' floated="right" type = 'button' content = 'Cancel' />
+                        {                            
+                            //<Button disabled={ isSubmitting || !dirty || !isValid } loading={loading} floated="right" positive type = 'submit' content = 'Submit' />
+                        }
+                        <Button disabled={!isValid || !dirty || isSubmitting} 
+                            type = 'submit' >Submit</Button>
+                        <Link to={`/`}>Cancel</Link>
                     </Form>
                 )}
 
             </Formik>
 
-        </Segment>
+        </div>
     )
 })
