@@ -18,7 +18,7 @@ namespace server_app.Controllers
         [HttpGet("details/{id}")]
         public async Task<ActionResult> Details(long id)
         {
-            return HandleResult(await Mediator.Send(new Details.Query{ID = id}));
+            return HandleResult(await Mediator.Send(new Details.Query{id = id}));
         }
 
         [HttpPost("create")]
@@ -34,13 +34,13 @@ namespace server_app.Controllers
 
             return HandleResult(await Mediator.Send(new Edit.Command{ Task = task}));
         }
-/*
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(Guid id)
+
+        [HttpPost("delete/{id}")]
+        public async Task<IActionResult> Delete(long id)
         {
-            return HandleResult(await Mediator.Send(new Delete.Command{Id=id}));
+            return HandleResult(await Mediator.Send(new Delete.Command{id=id}));
         }
-*/
+
 
     }
 }

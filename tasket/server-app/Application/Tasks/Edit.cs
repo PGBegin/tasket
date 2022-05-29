@@ -1,18 +1,3 @@
-/*
-
-using System.Threading;
-using System.Threading.Tasks;
-using server_app.ApplicationCore;
-using AutoMapper;
-using Domain;
-using FluentValidation;
-using MediatR;
-using Persistence;
-
-*/
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Threading;

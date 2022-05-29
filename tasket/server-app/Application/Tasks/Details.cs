@@ -15,7 +15,7 @@ namespace server_app.Application.Tasks
     {
 
         public class Query : IRequest<Result<Models.Task>>{
-            public long ID {get; set;}
+            public long id {get; set;}
         }
 
         public class Handler : IRequestHandler<Query, Result<Models.Task>>
@@ -28,7 +28,7 @@ namespace server_app.Application.Tasks
 
             public async Task<Result<Models.Task>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var task =  await _context.Tasks.FindAsync(request.ID);
+                var task =  await _context.Tasks.FindAsync(request.id);
 
                 if(task==null) throw new Exception("Task not found");
 
