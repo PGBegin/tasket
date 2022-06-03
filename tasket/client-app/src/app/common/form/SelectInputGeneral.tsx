@@ -25,7 +25,7 @@ export default function SelectInputGeneral(props: Props){
 
     return (
       <Form.Group>
-        <label>{props.label}</label>
+        <Form.Label>{props.label}</Form.Label>
         <Form.Select
           name={props.name}
           value={field.value}

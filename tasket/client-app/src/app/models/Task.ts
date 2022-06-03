@@ -6,6 +6,8 @@ export interface Task {
     startDatetimeActual: Date | null;
     endDatetimeScheduled: Date | null;
     endDatetimeActual: Date | null;
+
+    status: number;
     
     shortDescription: string;
     longDescription: string;

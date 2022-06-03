@@ -15,7 +15,7 @@ export default function TextAreaGeneral(props: Props){
         <>
         <Form.Group>
             <Form.Label>{props.label}</Form.Label>
-            <textarea {...field} {...props} />
+            <Form.Control as="textarea" {...field} {...props} />
             {meta.touched && meta.error ? (
                 <Form.Label>{meta.error}</Form.Label>
             ) : null}

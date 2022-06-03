@@ -14,6 +14,7 @@ import DateInputGeneral from "../../../app/common/form/DateInputGeneral";
 import TextAreaGeneral from "../../../app/common/form/TextAreaGeneral";
 import { categoryOptions } from "../../../app/common/options/categoryOptions";
 import SelectInputGeneral from "../../../app/common/form/SelectInputGeneral";
+import { statusOptions } from "../../../app/common/options/statusOptions";
 
 export default observer( function TaskForm(){
     const history = useHistory();
@@ -32,6 +33,7 @@ export default observer( function TaskForm(){
         startDatetimeActual: null,
         endDatetimeScheduled: null,
         endDatetimeActual: null,
+        status: 1,
         shortDescription: '',
         longDescription: '',
     });
@@ -43,11 +45,7 @@ export default observer( function TaskForm(){
         startDatetimeActual: Yup.date().nullable(),
         endDatetimeScheduled: Yup.date().nullable(),
         endDatetimeActual: Yup.date().nullable(),
-/*        description: Yup.string().required(),
-        category: Yup.string().required(),
-        date: Yup.string().required('Date is reqired').nullable(),
-        city: Yup.string().required(),
-        venue: Yup.string().required(),*/
+        status: Yup.number().required(),
     })
 
     useEffect(()=>{
@@ -81,15 +79,15 @@ export default observer( function TaskForm(){
                 onSubmit={values => handleFormSubmit(values)}>
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className="ui form" onSubmit = {handleSubmit} autoComplete='off'>
-                        <TextInputGeneral name='title' placeholder='title' />
+                        <TextInputGeneral label='Title' name='title' placeholder='title' />
 
-                        <TextAreaGeneral placeholder='shortDescription2' name='shortDescription3' rows={3}   />
+                        <TextAreaGeneral label='Short Description' placeholder='shortDescription' name='shortDescription' rows={5}   />
 
                         <DateInputGeneral placeholderText='Start(Schedule)' name = 'startDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='Start(Act)' name = 'startDatetimeActual' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Schedule)' name = 'endDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Act)' name = 'endDatetimeActual' dateFormat='MM d, yyyy' />
-                        <SelectInputGeneral placeholder='shortDescription' name='shortDescription' options={categoryOptions} />
+                        <SelectInputGeneral placeholder='status' name='status' options={statusOptions} />
 
                         <Button disabled={!isValid || !dirty || isSubmitting} 
                             type = 'submit' >Submit</Button>

@@ -10,6 +10,7 @@ namespace server_app.Models
         public Nullable<DateTime> startDatetimeActual { get; set; }
         public Nullable<DateTime> endDatetimeScheduled { get; set; }
         public Nullable<DateTime> endDatetimeActual { get; set; }
+        public int status { get; set; }
         public string shortDescription { get; set; }
         public string longDescription { get; set; }
         public string createUser { get; set; }
