@@ -5,13 +5,15 @@ import { Button } from "react-bootstrap";
 import LoadingComponent from "../../../app/layout/LoadingComponents";
 import { useStore } from "../../../app/stores/store";
 import {v4 as uuid} from 'uuid';
-import { Formik , Form} from "formik";
+import { Formik , Form, useField} from "formik";
 import * as Yup from 'yup';
 import MySelectInput from "../../../app/common/form/MySelectInput";
 import { Task } from "../../../app/models/Task";
 import TextInputGeneral from "../../../app/common/form/TextInputGeneral";
 import DateInputGeneral from "../../../app/common/form/DateInputGeneral";
 import TextAreaGeneral from "../../../app/common/form/TextAreaGeneral";
+import { categoryOptions } from "../../../app/common/options/categoryOptions";
+import SelectInputGeneral from "../../../app/common/form/SelectInputGeneral";
 
 export default observer( function TaskForm(){
     const history = useHistory();
@@ -70,10 +72,7 @@ export default observer( function TaskForm(){
     if(loadingInitial) return <LoadingComponent content="Loading task..." />
 
     return(
-        <div>
-            {
-                //<Header content='Task Details' sub color='teal' />
-            }            
+        <div>         
             <h3>Task Details</h3> 
             <Formik 
                 validationSchema={validationSchema}
@@ -84,33 +83,14 @@ export default observer( function TaskForm(){
                     <Form className="ui form" onSubmit = {handleSubmit} autoComplete='off'>
                         <TextInputGeneral name='title' placeholder='title' />
 
-                        <TextAreaGeneral placeholder='shortDescription' name='shortDescription' rows={3}   />
+                        <TextAreaGeneral placeholder='shortDescription2' name='shortDescription3' rows={3}   />
 
                         <DateInputGeneral placeholderText='Start(Schedule)' name = 'startDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='Start(Act)' name = 'startDatetimeActual' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Schedule)' name = 'endDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Act)' name = 'endDatetimeActual' dateFormat='MM d, yyyy' />
-                        {
-                            
-                        //<MySelectInput placeholder='Category' name='category' options={categoryOptions} />
-                            /*
-                            <DateInputGeneral 
-                                placeholderText='Date' 
-                                name = 'date'   
-                                showTimeSelect
-                                timeCaption="time"
-                                dateFormat='MMMM d, yyyy h:mm aa'
-                            />
-                            
-                        <Header content='Location Details' sub color='teal' />
-                        <MyTextInput placeholder = 'City'  name = 'city'   />
-                        <MyTextInput placeholder = 'Venue'  name = 'venue'   />
-    
-                        */
-                         }
-                        {                            
-                            //<Button disabled={ isSubmitting || !dirty || !isValid } loading={loading} floated="right" positive type = 'submit' content = 'Submit' />
-                        }
+                        <SelectInputGeneral placeholder='shortDescription' name='shortDescription' options={categoryOptions} />
+
                         <Button disabled={!isValid || !dirty || isSubmitting} 
                             type = 'submit' >Submit</Button>
                         <Link to={`/`}>Cancel</Link>
@@ -122,3 +102,16 @@ export default observer( function TaskForm(){
         </div>
     )
 })
+
+const MySelect = (name:string,  label:string, ...props:any ) => {
+    const [field, meta] = useField(props);
+    return (
+      <div>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <select {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };

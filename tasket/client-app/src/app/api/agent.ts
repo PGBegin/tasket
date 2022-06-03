@@ -71,7 +71,6 @@ const Tasks = {
     details:(id:number) => requests.get<Task>(`/tasks/details/${id}`),
     create:(task: Task) => axios.post<void>(`/tasks/create`,task),
     update: (task: Task) => axios.post<void>(`/tasks/update/${task.id}`, task),
-//    update: (activity: Activity) => axios.put<void>(`/activities/${activity.id}`, activity),
     delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
 }
 

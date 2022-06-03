@@ -99,8 +99,6 @@ export default class TaskStore {
             })
         }
     }
-    /*
-*/
 
     deleteTask = async (Id: number) => {
         this.loading = true;
