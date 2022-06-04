@@ -24,12 +24,13 @@ export default observer( function StatusForm(){
     const validationSchema = Yup.object({
 //        status: Yup.number().required(),
         title: Yup.string().required('The task Title is required'),
-    })
+    });
+
     const validationSchemaDel = Yup.object({
         status: Yup.number()
         .min(1, 'The minimum amount is one').required(),
 //        title: Yup.string().required('The task Title is required'),
-    })
+    });
 
     useEffect(()=>{
         if(id) loadStatus(Number(id)).then(status => setStatus(status!))
@@ -86,7 +87,7 @@ export default observer( function StatusForm(){
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className="ui form" onSubmit = {handleSubmit} autoComplete='off'>
                         <Button disabled={!isValid || isSubmitting} 
-                            type = 'submit' >Delete</Button>
+                            type = 'submit' variant="danger" >Delete</Button>
                     </Form>
                 )}
             </Formik>

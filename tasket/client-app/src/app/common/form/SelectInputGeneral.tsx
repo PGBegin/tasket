@@ -1,20 +1,21 @@
 import { useField } from "formik";
 import React from "react";
 import { Form } from "react-bootstrap";
+import { OptionBase } from "../../models/Optionbase";
 
 //https://codesandbox.io/s/react-bootstrap-formik-pb831?from-embed=&file=/src/form-select-field.js:0-1270
 //https://awesome-linus.com/2020/01/10/react-props-function-type/
 //https://www.robinwieruch.de/react-dropdown/
-
+/*
 type SelectOption = {
     label: string
     value: string
-  }
+  }*/
 
 interface Props{
     placeholder: string;
     name:string;
-    options: Array<SelectOption>;
+    options: Array<OptionBase>;
     label?: string;
 }
 
@@ -34,7 +35,7 @@ export default function SelectInputGeneral(props: Props){
           placeholder={props.placeholder}
         >
           {props.options.map((option) => (
-            <option value={option.value}>{option.label}</option>
+            <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </Form.Select>
         {meta.touched && meta.error ? (

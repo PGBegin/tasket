@@ -72,7 +72,7 @@ const Tasks = {
     details:(id:number) => requests.get<Task>(`/tasks/details/${id}`),
     create:(task: Task) => axios.post<void>(`/tasks/create`,task),
     update: (task: Task) => axios.post<void>(`/tasks/update/${task.id}`, task),
-    delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
+    delete: (id:number) => axios.post<void>(`/tasks/delete/${id}`),
 }
 
 const Statuses = {

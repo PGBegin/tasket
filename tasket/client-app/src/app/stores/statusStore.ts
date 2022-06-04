@@ -1,6 +1,9 @@
 import {  makeAutoObservable, runInAction } from "mobx";
 import agent from "../api/agent";
 import { Status } from "../models/Status";
+import { OptionBase } from "../models/Optionbase";
+
+
 
 export default class StatusStore {
     statusRegistry = new Map<number, Status>();
@@ -13,6 +16,8 @@ export default class StatusStore {
     constructor(){
         makeAutoObservable(this)
     }
+
+
 
 
     loadStatuses = async () => {
@@ -119,6 +124,16 @@ export default class StatusStore {
 
     private getStatus=(id:number) => {
         return this.statusRegistry.get(id);
+    }
+
+    getOptionArray=()=>{
+        const ans = Array<OptionBase>();
+
+        
+        Array.from(this.statusRegistry.values()).map(status=>(
+            ans.push({label: status.title, value: status.status.toString()})
+        ))
+        return ans;
     }
 
     setLoaingInitial = (state: boolean) => {

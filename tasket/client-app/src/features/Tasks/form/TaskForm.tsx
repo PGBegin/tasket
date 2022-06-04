@@ -18,11 +18,9 @@ import { statusOptions } from "../../../app/common/options/statusOptions";
 
 export default observer( function TaskForm(){
     const history = useHistory();
-    const {taskStore} = useStore();
-    const {
-        createTask, 
-        updateTask, 
-        loading, loadTask, loadingInitial} = taskStore;
+    const { taskStore, statusStore} = useStore();
+    const { createTask, updateTask, deleteTask, loading, loadTask, loadingInitial} = taskStore;
+    const { loadStatuses, statusRegistry, loadingInitial : loadingInitialstatus, getOptionArray} = statusStore;
 
     const {id} = useParams<{id: string}>();
 
@@ -38,6 +36,7 @@ export default observer( function TaskForm(){
         longDescription: '',
     });
 
+
     const validationSchema = Yup.object({
         title: Yup.string().required('The task Title is required'),
         shortDescription: Yup.string().nullable(),
@@ -46,7 +45,19 @@ export default observer( function TaskForm(){
         endDatetimeScheduled: Yup.date().nullable(),
         endDatetimeActual: Yup.date().nullable(),
         status: Yup.number().required(),
-    })
+    });
+    
+
+    const validationSchemaDel = Yup.object({
+        id: Yup.number()
+        .min(1, 'The minimum amount is one').required(),
+    });
+
+    useEffect(()=>{
+        loadStatuses().then(()=>{
+        //    console.log(statusRegistry);
+        });
+    }, []);
 
     useEffect(()=>{
         if(id) loadTask(Number(id)).then(task => setTask(task!))
@@ -67,12 +78,21 @@ export default observer( function TaskForm(){
         }
     }
 
-    if(loadingInitial) return <LoadingComponent content="Loading task..." />
+    
+    function handleFormSubmitDelete(task:Task) {
+        //console.log("called");
+        if(task.id ===0 ){
+        } else {
+            deleteTask(task.id);
+        }
+    }
+
+    if(loadingInitial || loadingInitialstatus) return <LoadingComponent content="Loading task..." />
 
     return(
         <div>         
             <h3>Task Details</h3> 
-            <Formik 
+            <Formik
                 validationSchema={validationSchema}
                 enableReinitialize 
                 initialValues={task} 
@@ -87,29 +107,28 @@ export default observer( function TaskForm(){
                         <DateInputGeneral placeholderText='Start(Act)' name = 'startDatetimeActual' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Schedule)' name = 'endDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Act)' name = 'endDatetimeActual' dateFormat='MM d, yyyy' />
-                        <SelectInputGeneral label='Status' placeholder='status' name='status' options={statusOptions} />
-
+                        <SelectInputGeneral label='Status' placeholder='status' name='status' options={getOptionArray()} />
+                        
                         <Button disabled={!isValid || !dirty || isSubmitting} 
                             type = 'submit' >Submit</Button>
-                        <Link to={`/`}>Cancel</Link>
+                        <Link to={`/tasks`}>Cancel</Link>
                     </Form>
                 )}
 
             </Formik>
 
+            <Formik
+                validationSchema={validationSchemaDel}
+                enableReinitialize 
+                initialValues={task} 
+                onSubmit={values => handleFormSubmitDelete(values)}>
+                {({ handleSubmit, isValid, isSubmitting, dirty }) => (
+                    <Form className="ui form" onSubmit = {handleSubmit} autoComplete='off'>
+                        <Button disabled={!isValid || isSubmitting} 
+                            type = 'submit' variant="danger" >Delete</Button>
+                    </Form>
+                )}
+            </Formik>
         </div>
     )
 })
-
-const MySelect = (name:string,  label:string, ...props:any ) => {
-    const [field, meta] = useField(props);
-    return (
-      <div>
-        <label htmlFor={props.id || props.name}>{label}</label>
-        <select {...field} {...props} />
-        {meta.touched && meta.error ? (
-          <div className="error">{meta.error}</div>
-        ) : null}
-      </div>
-    );
-  };
