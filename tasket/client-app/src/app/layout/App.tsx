@@ -16,6 +16,8 @@ import TaskIndex from '../../features/Tasks/index/TaskIndex';
 import TaskForm from '../../features/Tasks/form/TaskForm';
 import TaskDetails from '../../features/Tasks/details/TaskDetails';
 import RegisterForm from '../../features/users/RegisterForm';
+import StatusForm from '../../features/Status/form/StatusForm';
+import StatusIndex from '../../features/Status/index/StatusIndex';
 
 function App() {
   const location = useLocation();
@@ -47,6 +49,8 @@ function App() {
                 <Route path = '/tasks' component={TaskIndex} />
                 <Route path = '/task/:id' component={TaskDetails} />
                 <Route key = {location.key} path = {['/createTask', '/edittask/:id']} component={TaskForm} />
+                <Route path = '/statuses' component={StatusIndex} />
+                <Route key = {location.key} path = {['/createStatus', '/editstatus/:id']} component={StatusForm} />
                 <Route path='/errors' component={TestErrors} />
                 <Route path='/server-error' component={ServerError} />
                 <Route path='/login' component={LoginForm} />

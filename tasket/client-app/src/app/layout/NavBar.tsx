@@ -18,6 +18,7 @@ export default observer ( function NavBar() {
                         {
                             user ? 
                                 <>
+                                    <Nav.Link as={NavLink} to="/statuses">Status</Nav.Link>
                                     <Nav.Link as={NavLink} to="/register">Register</Nav.Link>
                                     <Nav.Link as={NavLink} to="/errors">Errors</Nav.Link>
                                     <Nav.Link as={NavLink} to="/logout">{user.username} </Nav.Link>

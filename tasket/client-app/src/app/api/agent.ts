@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { request } from "http";
 import { toast } from "react-toastify";
 import { history } from "../..";
+import { Status } from "../models/Status";
 import { Task } from "../models/Task";
 import { User, UserFormValues } from "../models/user";
 import { store } from "../stores/store";
@@ -74,6 +75,13 @@ const Tasks = {
     delete: (id:number) => axios.delete<void>(`/tasks/details/${id}`),
 }
 
+const Statuses = {
+    list: () => requests.get<Status[]>('/status/index'),
+    details:(id:number) => requests.get<Status>(`/status/details/${id}`),
+    create:(status: Status) => axios.post<Status>(`/status/create`,status),
+    update: (status: Status) => axios.post<Status>(`/status/update/${status.status}`, status),
+    delete: (id:number) => axios.post<Status>(`/status/delete/${id}`),
+}
 
 const Account = {
     current: () => requests.get<User>('/account'),
@@ -83,7 +91,8 @@ const Account = {
 
 const agent = {
     Account,
-    Tasks
+    Tasks,
+    Statuses
 }
 
 export default agent;

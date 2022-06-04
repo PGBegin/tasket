@@ -9,6 +9,7 @@ namespace server_app.ApplicationCore
         public MappingProfiles()
         {
             CreateMap<Task, Task>();
+            CreateMap<Status, Status>();
         }
     }
 }

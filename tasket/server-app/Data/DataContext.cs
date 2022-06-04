@@ -12,5 +12,6 @@ namespace server_app.Data
         }
 
         public DbSet<Task> Tasks {get; set;}
+        public DbSet<Status> Statuses {get; set;}
     }
 }

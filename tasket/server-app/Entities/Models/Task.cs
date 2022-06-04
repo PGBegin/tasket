@@ -17,5 +17,7 @@ namespace server_app.Models
         public DateTime createDatetime { get; set; }
         public string latestUpdateUser { get; set; }
         public DateTime latestUpdateDatetime { get; set; }
+
+        //public Status Status { get; set; } // 追加分
     }
 }
