@@ -87,7 +87,7 @@ export default observer( function TaskForm(){
                         <DateInputGeneral placeholderText='Start(Act)' name = 'startDatetimeActual' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Schedule)' name = 'endDatetimeScheduled' dateFormat='MM d, yyyy' />
                         <DateInputGeneral placeholderText='End(Act)' name = 'endDatetimeActual' dateFormat='MM d, yyyy' />
-                        <SelectInputGeneral placeholder='status' name='status' options={statusOptions} />
+                        <SelectInputGeneral label='Status' placeholder='status' name='status' options={statusOptions} />
 
                         <Button disabled={!isValid || !dirty || isSubmitting} 
                             type = 'submit' >Submit</Button>
