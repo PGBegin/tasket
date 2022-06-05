@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220604023106_InitialCreate8")]
-    partial class InitialCreate8
+    [Migration("20220605001017_01Create")]
+    partial class _01Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -260,10 +260,7 @@ namespace server_app.Migrations
                     b.Property<DateTime?>("startDatetimeScheduled")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("status1")
+                    b.Property<int?>("status")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("title")
@@ -271,7 +268,7 @@ namespace server_app.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("status1");
+                    b.HasIndex("status");
 
                     b.ToTable("Tasks");
                 });
@@ -330,10 +327,15 @@ namespace server_app.Migrations
             modelBuilder.Entity("server_app.Models.Task", b =>
                 {
                     b.HasOne("server_app.Models.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("status1");
+                        .WithMany("Tasks")
+                        .HasForeignKey("status");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

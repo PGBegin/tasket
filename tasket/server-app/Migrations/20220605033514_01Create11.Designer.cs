@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220514073143_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220605033514_01Create11")]
+    partial class _01Create11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,69 @@ namespace server_app.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Property<int>("status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("status");
+
+                    b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("createDatetime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("createUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("endDatetimeActual")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("endDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("latestUpdateDatetime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("latestUpdateUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("longDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("shortDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeActual")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("status");
+
+                    b.ToTable("Tasks");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -259,6 +322,22 @@ namespace server_app.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.HasOne("server_app.Models.Status", "StatusNavigation")
+                        .WithMany("Tasks")
+                        .HasForeignKey("status")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StatusNavigation");
+                });
+
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

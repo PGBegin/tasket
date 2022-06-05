@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220526071508_InitialCreate4")]
-    partial class InitialCreate4
+    [Migration("20220605022626_01Create6")]
+    partial class _01Create6
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,25 +210,63 @@ namespace server_app.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("server_app.Models.Task", b =>
+            modelBuilder.Entity("server_app.Models.Status", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("Date")
+                    b.Property<string>("title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LongDescription")
+                    b.HasKey("status");
+
+                    b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("createDatetime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ShortDescription")
+                    b.Property<string>("createUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Title")
+                    b.Property<DateTime?>("endDatetimeActual")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime?>("endDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("latestUpdateDatetime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("latestUpdateUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("longDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("shortDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeActual")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
 
                     b.ToTable("Tasks");
                 });

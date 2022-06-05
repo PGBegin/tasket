@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220514123748_InitialCreate3")]
-    partial class InitialCreate3
+    [Migration("20220605020858_01Create4")]
+    partial class _01Create4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,25 +210,65 @@ namespace server_app.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("server_app.Models.Task", b =>
+            modelBuilder.Entity("server_app.Models.Status", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<string>("title")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("LongDescription")
+                    b.HasKey("status");
+
+                    b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.Property<long>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("createDatetime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ShortDescription")
+                    b.Property<string>("createUser")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Title")
+                    b.Property<DateTime?>("endDatetimeActual")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime?>("endDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("latestUpdateDatetime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("latestUpdateUser")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("longDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("shortDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeActual")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("startDatetimeScheduled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("status");
 
                     b.ToTable("Tasks");
                 });
@@ -282,6 +322,18 @@ namespace server_app.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.HasOne("server_app.Models.Status", null)
+                        .WithMany("Tasks")
+                        .HasForeignKey("status");
+                });
+
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

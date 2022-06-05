@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using server_app.Data;
 
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220605032224_01Create09")]
+    partial class _01Create09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,6 +230,9 @@ namespace server_app.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("StatusNavigationstatus")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("createDatetime")
                         .HasColumnType("TEXT");
 
@@ -266,7 +271,7 @@ namespace server_app.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("status");
+                    b.HasIndex("StatusNavigationstatus");
 
                     b.ToTable("Tasks");
                 });
@@ -326,9 +331,7 @@ namespace server_app.Migrations
                 {
                     b.HasOne("server_app.Models.Status", "StatusNavigation")
                         .WithMany("Tasks")
-                        .HasForeignKey("status")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StatusNavigationstatus");
 
                     b.Navigation("StatusNavigation");
                 });

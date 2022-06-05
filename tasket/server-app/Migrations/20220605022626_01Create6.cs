@@ -2,7 +2,7 @@
 
 namespace server_app.Migrations
 {
-    public partial class InitialCreate7 : Migration
+    public partial class _01Create6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

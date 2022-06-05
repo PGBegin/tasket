@@ -28,6 +28,7 @@ namespace server_app.Application.Tasks
 
                 
                 return Result<List<server_app.Models.Task>>.Success(await _context.Tasks.ToListAsync(cancellationToken));
+                //return Result<List<server_app.Models.Task>>.Success(await _context.Tasks.Include(x => x.StatusNavigation).ToListAsync(cancellationToken));
             }
         }
     }

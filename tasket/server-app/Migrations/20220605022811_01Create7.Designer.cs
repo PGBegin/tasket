@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220526132341_InitialCreate6")]
-    partial class InitialCreate6
+    [Migration("20220605022811_01Create7")]
+    partial class _01Create7
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,20 @@ namespace server_app.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Property<int>("status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("status");
+
+                    b.ToTable("Statuses");
+                });
+
             modelBuilder.Entity("server_app.Models.Task", b =>
                 {
                     b.Property<long>("id")
@@ -246,10 +260,15 @@ namespace server_app.Migrations
                     b.Property<DateTime?>("startDatetimeScheduled")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("status")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
+
+                    b.HasIndex("status");
 
                     b.ToTable("Tasks");
                 });
@@ -303,6 +322,20 @@ namespace server_app.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("server_app.Models.Task", b =>
+                {
+                    b.HasOne("server_app.Models.Status", "Status")
+                        .WithMany("Tasks")
+                        .HasForeignKey("status");
+
+                    b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

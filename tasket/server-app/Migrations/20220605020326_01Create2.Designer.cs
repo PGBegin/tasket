@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using server_app.Data;
 
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220605020326_01Create2")]
+    partial class _01Create2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,12 +263,15 @@ namespace server_app.Migrations
                     b.Property<int>("status")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("status1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("title")
                         .HasColumnType("TEXT");
 
                     b.HasKey("id");
 
-                    b.HasIndex("status");
+                    b.HasIndex("status1");
 
                     b.ToTable("Tasks");
                 });
@@ -324,13 +329,11 @@ namespace server_app.Migrations
 
             modelBuilder.Entity("server_app.Models.Task", b =>
                 {
-                    b.HasOne("server_app.Models.Status", "StatusNavigation")
+                    b.HasOne("server_app.Models.Status", "Status")
                         .WithMany("Tasks")
-                        .HasForeignKey("status")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("status1");
 
-                    b.Navigation("StatusNavigation");
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("server_app.Models.Status", b =>

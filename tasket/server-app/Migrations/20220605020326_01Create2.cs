@@ -2,7 +2,7 @@
 
 namespace server_app.Migrations
 {
-    public partial class InitialCreate8 : Migration
+    public partial class _01Create2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,19 +11,6 @@ namespace server_app.Migrations
                 table: "Tasks",
                 type: "INTEGER",
                 nullable: true);
-
-            migrationBuilder.CreateTable(
-                name: "Statuses",
-                columns: table => new
-                {
-                    status = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    title = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Statuses", x => x.status);
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_status1",
@@ -44,9 +31,6 @@ namespace server_app.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Tasks_Statuses_status1",
                 table: "Tasks");
-
-            migrationBuilder.DropTable(
-                name: "Statuses");
 
             migrationBuilder.DropIndex(
                 name: "IX_Tasks_status1",

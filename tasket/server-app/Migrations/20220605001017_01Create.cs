@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace server_app.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class _01Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,19 @@ namespace server_app.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Statuses",
+                columns: table => new
+                {
+                    status = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    title = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Statuses", x => x.status);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,6 +165,36 @@ namespace server_app.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Tasks",
+                columns: table => new
+                {
+                    id = table.Column<long>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    title = table.Column<string>(type: "TEXT", nullable: true),
+                    startDatetimeScheduled = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    startDatetimeActual = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    endDatetimeScheduled = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    endDatetimeActual = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    shortDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    longDescription = table.Column<string>(type: "TEXT", nullable: true),
+                    createUser = table.Column<string>(type: "TEXT", nullable: true),
+                    createDatetime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    latestUpdateUser = table.Column<string>(type: "TEXT", nullable: true),
+                    latestUpdateDatetime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    status = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tasks", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Tasks_Statuses_status",
+                        column: x => x.status,
+                        principalTable: "Statuses",
+                        principalColumn: "status",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -188,6 +231,11 @@ namespace server_app.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_status",
+                table: "Tasks",
+                column: "status");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -208,10 +256,16 @@ namespace server_app.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Tasks");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Statuses");
         }
     }
 }

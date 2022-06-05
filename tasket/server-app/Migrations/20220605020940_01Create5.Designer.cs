@@ -9,8 +9,8 @@ using server_app.Data;
 namespace server_app.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220603150620_InitialCreate7")]
-    partial class InitialCreate7
+    [Migration("20220605020940_01Create5")]
+    partial class _01Create5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -210,6 +210,20 @@ namespace server_app.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("server_app.Models.Status", b =>
+                {
+                    b.Property<int>("status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("status");
+
+                    b.ToTable("Statuses");
+                });
+
             modelBuilder.Entity("server_app.Models.Task", b =>
                 {
                     b.Property<long>("id")
@@ -245,9 +259,6 @@ namespace server_app.Migrations
 
                     b.Property<DateTime?>("startDatetimeScheduled")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("status")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("title")
                         .HasColumnType("TEXT");
