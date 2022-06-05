@@ -23,7 +23,8 @@ namespace server_app.Data
             builder.Entity<Task>()
                 .HasOne(d => d.StatusNavigation)
                 .WithMany(x => x.Tasks)
-                .HasForeignKey(d => d.status);
+                .HasForeignKey(d => d.status)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
