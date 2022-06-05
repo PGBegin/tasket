@@ -13,5 +13,17 @@ namespace server_app.Data
 
         public DbSet<Task> Tasks {get; set;}
         public DbSet<Status> Statuses {get; set;}
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Status>( x=> x.HasKey(aa => new {aa.status}));
+            
+            builder.Entity<Task>()
+                .HasOne(d => d.StatusNavigation)
+                .WithMany(x => x.Tasks)
+                .HasForeignKey(d => d.status);
+        }
     }
 }

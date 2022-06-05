@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace server_app.Models
 {
@@ -17,7 +18,6 @@ namespace server_app.Models
         public DateTime createDatetime { get; set; }
         public string latestUpdateUser { get; set; }
         public DateTime latestUpdateDatetime { get; set; }
-
-        //public Status Status { get; set; } // 追加分
+        public Status StatusNavigation { get; set; } // 追加分
     }
 }
