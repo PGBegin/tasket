@@ -32,6 +32,7 @@ export default observer( function TaskForm(){
         endDatetimeScheduled: null,
         endDatetimeActual: null,
         status: 1,
+        status_title:'',
         shortDescription: '',
         longDescription: '',
     });

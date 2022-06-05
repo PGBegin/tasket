@@ -12,7 +12,7 @@ namespace server_app.Controllers
         [HttpGet("index")]
         public async Task<ActionResult> GetTasks()
         {
-            return HandleResult(await Mediator.Send(new List.Query()));
+            return HandleResult(await Mediator.Send(new List2.Query()));
         }
 
         [HttpGet("details/{id}")]

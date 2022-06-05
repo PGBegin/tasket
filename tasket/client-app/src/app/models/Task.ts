@@ -8,6 +8,7 @@ export interface Task {
     endDatetimeActual: Date | null;
 
     status: number;
+    status_title: string;
     
     shortDescription: string;
     longDescription: string;

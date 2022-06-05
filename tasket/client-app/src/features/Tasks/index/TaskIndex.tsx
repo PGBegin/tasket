@@ -38,6 +38,10 @@ export default observer(function TaskIndex() {
                         <th>ID</th>
                         <th>Title</th>
                         <th>Status</th>
+                        <th>Start(Sch)</th>
+                        <th>Start(Act)</th>
+                        <th>End(Sch)</th>
+                        <th>End(Act)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,7 +50,11 @@ export default observer(function TaskIndex() {
                             <tr key={task.id}>
                                 <td> <Link to={`/edittask/${task.id}`}>{task.id}</Link> </td>
                                 <td> {task.title} </td>
-                                <td> {task.status} </td>
+                                <td> {task.status_title} </td>
+                                <td> {task.startDatetimeScheduled} </td>
+                                <td> {task.startDatetimeActual} </td>
+                                <td> {task.endDatetimeScheduled} </td>
+                                <td> {task.endDatetimeActual} </td>
                             </tr> 
                     )) }
                 </tbody>
